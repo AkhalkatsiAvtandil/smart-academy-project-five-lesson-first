@@ -6,7 +6,7 @@ import Footer from "@/components/footer/Footer";
 export default function Home() {
   return (
     <div className={styles.page}>
-      <Navbar />
+      {/* <Navbar /> */}
       <p>GAMARJOBA </p>
       <Footer />
     </div>
