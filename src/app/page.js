@@ -1,28 +1,42 @@
 "use client";
-import Image from "next/image";
-import styles from "./page.module.css";
-import Navbar from "@/components/navbar/Navbar";
-import Footer from "@/components/footer/Footer";
+
+import { useEffect, useState } from "react";
 import Productitem from "@/components/product/Productitem";
-import { useState, useEffect } from "react";
+import styles from "./page.module.css";
 
 export default function Product() {
-  const [products, setProduct] = useState(null);
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products ")
-      .then((response) => response.json())
-      .then((result) => setProduct(result));
-  }, [products]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  if (products === null) {
-    return <div className={styles.productitem}>product loading...</div>;
-  }
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to load products");
+        }
+
+        return response.json();
+      })
+      .then((result) => setProducts(result))
+      .catch(() => setError("Something went wrong while loading the items."))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <div className={styles.productitem}>
-      {products?.map((item) => (
-        <div>{item.title}</div>
-      ))}
-    </div>
+    <main className={styles.page}>
+      <p className={styles.pageTitle}>Fetched items</p>
+
+      {loading && <div className={styles.message}>Loading...</div>}
+      {!loading && error && <div className={styles.message}>{error}</div>}
+
+      {!loading && !error && (
+        <div className={styles.grid}>
+          {products.map((item) => (
+            <Productitem key={item.id} item={item} />
+          ))}
+        </div>
+      )}
+    </main>
   );
 }
