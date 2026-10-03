@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 import Productitem from "@/components/product/Productitem";
+import { useState, useEffect } from "react";
 
 // 2nd part of task 1st
 const products = [
@@ -49,12 +50,13 @@ const products = [
     },
   },
 ];
-
 export default function Home() {
   return (
+    // {Productitem()}
     <div className={styles.page}>
       {/* <Navbar /> */}
       <p>GAMARJOBA </p>
+
       {products.map((item) => (
         <div key={item.id}>
           <h3>{item.title}</h3>
@@ -63,9 +65,9 @@ export default function Home() {
           <img src={item.image} alt={item.title} />
         </div>
       ))}
+
       {/* <Footer /> */}
     </div>
   );
 }
-
 // lesson 2nd part of task 1st
