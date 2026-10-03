@@ -1,7 +1,9 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import Productitem from "@/components/product/Productitem";
 
 // 2nd part of task 1st
 const products = [
@@ -65,3 +67,5 @@ export default function Home() {
     </div>
   );
 }
+
+// lesson 2nd part of task 1st
