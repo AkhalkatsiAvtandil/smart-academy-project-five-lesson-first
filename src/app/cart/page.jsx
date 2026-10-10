@@ -1,5 +1,5 @@
 function page() {
-  return <div>page</div>;
+  return <div>cart</div>;
 }
 
 export default page;

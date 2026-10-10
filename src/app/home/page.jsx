@@ -1,5 +1,7 @@
+"use client";
 function page() {
-  return <div>page</div>;
+  // const { id } = useParams();
+  return <div>home</div>;
 }
 
 export default page;

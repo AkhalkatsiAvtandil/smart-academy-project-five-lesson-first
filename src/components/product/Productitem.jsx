@@ -1,8 +1,15 @@
+"use client";
+import { useRouter } from "next/navigation";
 import styles from "./Productitem.module.css";
 
 export default function Productitem({ item, onDelete }) {
+  const router = useRouter();
+
   return (
-    <article className={styles.card}>
+    <article
+      className={styles.card}
+      onClick={() => router.push(`/productDdetails/${item.id}`)}
+    >
       <img className={styles.image} src={item.images[0]} alt={item.title} />
 
       <div className={styles.content}>
@@ -10,13 +17,18 @@ export default function Productitem({ item, onDelete }) {
         <p>${item.price}</p>
         <p>{item.rating}</p>
         <p>{item.warrantyInformation}</p>
-        <button
-          className={styles.deleteButton}
-          onClick={() => onDelete(item.id)}
-          type="button"
-        >
-          Delete
-        </button>
+        {onDelete && (
+          <button
+            className={styles.deleteButton}
+            onClick={(event) => {
+              event.stopPropagation();
+              onDelete(item.id);
+            }}
+            type="button"
+          >
+            Delete
+          </button>
+        )}
       </div>
     </article>
   );
