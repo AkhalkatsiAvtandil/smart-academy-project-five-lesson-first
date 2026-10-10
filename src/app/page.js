@@ -10,7 +10,7 @@ export default function Product() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://dummyjson.com/products")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load products");
@@ -18,7 +18,7 @@ export default function Product() {
 
         return response.json();
       })
-      .then((result) => setProducts(result))
+      .then((result) => setProducts(result.products))
       .catch(() => setError("Something went wrong while loading the items."))
       .finally(() => setLoading(false));
   }, []);
@@ -33,7 +33,15 @@ export default function Product() {
       {!loading && !error && (
         <div className={styles.grid}>
           {products.map((item) => (
-            <Productitem key={item.id} item={item} />
+            <Productitem
+              key={item.id}
+              item={item}
+              onDelete={(id) =>
+                setProducts((currentProducts) =>
+                  currentProducts.filter((product) => product.id !== id),
+                )
+              }
+            />
           ))}
         </div>
       )}

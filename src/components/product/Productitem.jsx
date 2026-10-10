@@ -1,25 +1,22 @@
 import styles from "./Productitem.module.css";
 
-export default function Productitem({ item }) {
-  const initials = item.name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-
+export default function Productitem({ item, onDelete }) {
   return (
     <article className={styles.card}>
-      <div className={styles.avatar}>{initials}</div>
+      <img className={styles.image} src={item.images[0]} alt={item.title} />
 
       <div className={styles.content}>
-        <h3>{item.name}</h3>
-        <p className={styles.role}>{item.company?.name || "Company"}</p>
-        <p>{item.email}</p>
-        <p>{item.phone}</p>
-        <a href={`https://${item.website}`} target="_blank" rel="noreferrer">
-          {item.website}
-        </a>
+        <h3 className={styles.title}>{item.title}</h3>
+        <p>${item.price}</p>
+        <p>{item.rating}</p>
+        <p>{item.warrantyInformation}</p>
+        <button
+          className={styles.deleteButton}
+          onClick={() => onDelete(item.id)}
+          type="button"
+        >
+          Delete
+        </button>
       </div>
     </article>
   );
