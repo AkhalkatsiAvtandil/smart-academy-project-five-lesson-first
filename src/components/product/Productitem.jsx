@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import styles from "./Productitem.module.css";
 
-export default function Productitem({ item, onDelete }) {
+export default function Productitem({ item, onDelete, onCart }) {
   const router = useRouter();
   const rating =
     typeof item?.rating === "object" ? item.rating.rate : item?.rating;
@@ -37,6 +37,18 @@ export default function Productitem({ item, onDelete }) {
             type="button"
           >
             Delete
+          </button>
+        )}
+        {onCart && (
+          <button
+            className={styles.addToCartButton}
+            onClick={(event) => {
+              event.stopPropagation();
+              onCart(item);
+            }}
+            type="button"
+          >
+            Add to Cart
           </button>
         )}
       </div>

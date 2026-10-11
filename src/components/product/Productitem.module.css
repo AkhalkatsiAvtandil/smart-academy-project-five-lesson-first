@@ -25,9 +25,11 @@
 
 .content {
   flex: 1;
+  min-width: 0;
 }
 
 .content h3 {
+  overflow-wrap: anywhere;
   margin: 0 0 8px;
   color: #1d332b;
   font-size: 1.15rem;
@@ -45,6 +47,7 @@
 
 .content p,
 .content a {
+  overflow-wrap: anywhere;
   margin: 0 0 10px;
   color: #4f5e59;
   font-size: 0.96rem;
@@ -57,11 +60,41 @@
   font-weight: 600;
 }
 
-.deleteButton {
+.deleteButton,
+.addToCartButton {
+  width: 112px;
   padding: 6px 12px;
   border: 0;
   border-radius: 4px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.deleteButton {
   background: #b42318;
   color: #fff;
-  cursor: pointer;
+}
+
+.addToCartButton {
+  margin-top: 4px;
+  background: #e9f5ee;
+  color: #1d6e53;
+}
+
+.deleteButton,
+.addToCartButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addToCartButton:hover {
+  background: #1d6e53;
+  color: #fff;
+}
+
+.addToCartButton:focus-visible {
+  outline: 2px solid #1d6e53;
+  outline-offset: 2px;
 }

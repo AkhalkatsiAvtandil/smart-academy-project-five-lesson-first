@@ -6,7 +6,7 @@ import { useDeletedItems } from "./deletedItemsContext";
 import styles from "./page.module.css";
 
 export default function Product() {
-  const { addDeletedProduct } = useDeletedItems();
+  const { addDeletedProduct, addToCart } = useDeletedItems();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -42,7 +42,12 @@ export default function Product() {
       {!loading && !error && products.length > 0 && (
         <div className={styles.grid}>
           {products.map((item) => (
-            <Productitem key={item.id} item={item} onDelete={deleteProduct} />
+            <Productitem
+              key={item.id}
+              item={item}
+              onDelete={deleteProduct}
+              onCart={addToCart}
+            />
           ))}
         </div>
       )}

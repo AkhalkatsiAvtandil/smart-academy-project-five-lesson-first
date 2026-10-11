@@ -1,0 +1,17 @@
+.profile {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #f4f7f4;
+  border-radius: 8px;
+}
+
+.title {
+  margin-bottom: 16px;
+  color: #244332;
+}
+
+.detail {
+  margin: 8px 0;
+  color: #333;
+}
