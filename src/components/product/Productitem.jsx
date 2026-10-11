@@ -2,7 +2,12 @@
 import { useRouter } from "next/navigation";
 import styles from "./Productitem.module.css";
 
-export default function Productitem({ item, onDelete, onCart }) {
+export default function Productitem({
+  item,
+  onDelete,
+  onCart,
+  onQuantityChange,
+}) {
   const router = useRouter();
   const rating =
     typeof item?.rating === "object" ? item.rating.rate : item?.rating;
@@ -27,6 +32,33 @@ export default function Productitem({ item, onDelete, onCart }) {
             item.warrantyInformation ||
             "No description available."}
         </p>
+        {onQuantityChange && (
+          <div className={styles.quantityControls}>
+            <button
+              onClick={(event) => {
+                event.stopPropagation();
+                onQuantityChange(item.id, item.quantity - 1);
+              }}
+              disabled={item.quantity <= 1}
+              type="button"
+              aria-label="Decrease quantity"
+            >
+              -
+            </button>
+            <span className={styles.quantityValue}>{item.quantity}</span>
+            <button
+              onClick={(event) => {
+                event.stopPropagation();
+                onQuantityChange(item.id, item.quantity + 1);
+              }}
+              disabled={item.quantity >= 10}
+              type="button"
+              aria-label="Increase quantity"
+            >
+              +
+            </button>
+          </div>
+        )}
         {onDelete && (
           <button
             className={styles.deleteButton}

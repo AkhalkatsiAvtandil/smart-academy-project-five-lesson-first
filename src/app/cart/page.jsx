@@ -4,7 +4,7 @@ import Productitem from "@/components/product/Productitem";
 import { useDeletedItems } from "../deletedItemsContext";
 
 export default function CartPage() {
-  const { cartProducts } = useDeletedItems();
+  const { cartProducts, changeQuantity } = useDeletedItems();
 
   return (
     <main>
@@ -12,7 +12,13 @@ export default function CartPage() {
       {cartProducts.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        cartProducts.map((item) => <Productitem key={item.id} item={item} />)
+        cartProducts.map((item) => (
+          <Productitem
+            key={item.id}
+            item={item}
+            onQuantityChange={changeQuantity}
+          />
+        ))
       )}
     </main>
   );

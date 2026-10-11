@@ -5,7 +5,7 @@
   padding: 20px;
   border: 1px solid #dfe7e1;
   border-radius: 18px;
-  background: linear-gradient(180deg, #ffffff 0%, #f5faf7 100%);
+  background: linear-gradient(180deg, #b48787 0%, #f5faf7 100%);
   box-shadow: 0 10px 24px rgba(31, 59, 43, 0.08);
   transition:
     transform 0.2s ease,
@@ -60,6 +60,31 @@
   font-weight: 600;
 }
 
+.quantityControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.quantityValue {
+  color: #000;
+}
+
+.quantityControls button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #05ff44;
+  border-radius: 4px;
+  background: #ee0505;
+  cursor: pointer;
+}
+
+.quantityControls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .deleteButton,
 .addToCartButton {
   width: 112px;
@@ -72,7 +97,7 @@
 }
 
 .deleteButton {
-  background: #b42318;
+  background: #eb2121;
   color: #fff;
 }
 
