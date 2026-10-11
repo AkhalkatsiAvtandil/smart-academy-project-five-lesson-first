@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Productitem from "@/components/product/Productitem";
+import { useDeletedItems } from "./deletedItemsContext";
 import styles from "./page.module.css";
 
 export default function Product() {
+  const { addDeletedProduct } = useDeletedItems();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -18,6 +20,9 @@ export default function Product() {
   }, []);
 
   function deleteProduct(id) {
+    const deletedProduct = products.find((item) => item.id === id);
+    if (deletedProduct) addDeletedProduct(deletedProduct);
+
     setProducts((currentProducts) =>
       currentProducts.filter((item) => item.id !== id),
     );

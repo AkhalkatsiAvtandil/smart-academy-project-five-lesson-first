@@ -6,6 +6,7 @@ const navbarItems = [
   { id: 3, name: "Contact", url: "/contact" },
   { id: 4, name: "Cart", url: "/cart" },
   { id: 5, name: "Deleted Items", url: "/deletedItems" },
+  { id: 6, name: "Profile", url: "/profile" },
 ];
 
 const Navbar = () => {
