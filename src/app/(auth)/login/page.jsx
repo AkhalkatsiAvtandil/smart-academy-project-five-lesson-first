@@ -1,17 +1,22 @@
 "use client";
 import { useState } from "react";
-const page = () => {
+const Page = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [submiterror, setSubmitEror] = useState(null);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (username.length === 6) {
+      return setSubmitEror("username must be more than 6 characters");
+    }
   };
   const handleSeePassword = () => {
     setIsVisible(!isVisible);
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -29,9 +34,10 @@ const page = () => {
         />
         <p onClick={handleSeePassword}>see password </p>
         <button type="submit">Sign In</button>
+        {submiterror && <p>{submiterror}</p>}
       </form>
     </div>
   );
 };
 
-export default page;
+export default Page;

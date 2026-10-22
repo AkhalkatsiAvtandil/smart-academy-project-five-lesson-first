@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Productitem from "@/components/product/Productitem";
 import { useDeletedItems } from "./deletedItemsContext";
 import styles from "./page.module.css";
 
 export default function Product() {
+  const router = useRouter();
   const { addDeletedProduct, addToCart } = useDeletedItems();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,9 +15,11 @@ export default function Product() {
 
   const isUser = false;
 
-  if (!isUser) {
-    router.push("/login");
-  }
+  useEffect(() => {
+    if (!isUser) {
+      router.push("/login");
+    }
+  }, [isUser, router]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
