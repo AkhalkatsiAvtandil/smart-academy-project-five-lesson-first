@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import styles from "./page.module.css";
 
 const page = () => {
   const handleSubmit = async (e) => {
@@ -7,18 +9,47 @@ const page = () => {
   };
 
   return (
-    <div>
-      <h2>Register Page</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <br></br>
-          <input type="text" placeholder="username" />
-          <label htmlFor="email">Email:</label>
-          <br></br>
-          <input type="email" placeholder="email" />
+    <div className={styles.page}>
+      <h2 className={styles.title}>Register Page</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.fields}>
+          <label className={styles.label} htmlFor="first   Name">
+            First Name:
+          </label>
+          <input className={styles.input} type="text" />
+
+          <label className={styles.label} htmlFor="lastName">
+            Last Name:
+          </label>
+          <input className={styles.input} type="text" />
+
+          <label className={styles.label} htmlFor="age">
+            Age:
+          </label>
+          <input className={styles.input} type="number" />
+
+          <label className={styles.label} htmlFor="email">
+            Email:
+          </label>
+          <input className={styles.input} type="email" />
+
+          <label className={styles.label} htmlFor="password">
+            Password:
+          </label>
+          <input className={styles.input} type="password" />
+
+          <label className={styles.label} htmlFor="phone">
+            Phone:
+          </label>
+          <input className={styles.input} type="tel" />
         </div>
+        <button className={styles.submitButton} type="submit">
+          Register
+        </button>
       </form>
+      <Link href="/login" className={styles.loginLink}>
+        Already have an account? Sign In
+      </Link>
     </div>
   );
 };
