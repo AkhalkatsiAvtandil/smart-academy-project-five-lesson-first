@@ -144,7 +144,18 @@
   outline: 3px solid rgb(50 140 131 / 35%);
   outline-offset: 3px;
 }
+.registerLink {
+  margin-top: 22px;
+  color: #247b73;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  transition: color 160ms ease;
+}
 
+.registerLink:hover {
+  color: #164d49;
+}
 @media (max-width: 520px) {
   .page {
     min-height: 480px;

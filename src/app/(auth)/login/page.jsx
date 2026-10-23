@@ -26,14 +26,14 @@ const Page = () => {
     }
 
     try {
-      const response = await fetch("https://fakestoreapi.com/aut  h/login ", {
+      const response = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
       const result = await response.json();
       if (result.token) {
-        throw new Error(router.push("/market"));
+        router.push("/market");
       } else {
         return alert("Invalid username or password. Please try again.");
       }
@@ -78,8 +78,7 @@ const Page = () => {
         </button>
       </form>
       <Link href="/register" className={styles.registerLink}>
-        Don't have an account?
-        <span>Sign Up</span>
+        Don't have an account? Sign Up
       </Link>
     </div>
   );

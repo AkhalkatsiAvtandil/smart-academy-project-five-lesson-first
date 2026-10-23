@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 
 const userSchema = yup.object().shape({
   firstName: yup
@@ -39,7 +40,9 @@ const userSchema = yup.object().shape({
     .max(100, "Phone number must be at most 100 digits"),
 });
 
-const page = () => {
+const Page = () => {
+  const router = useRouter();
+
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
   // };
@@ -51,8 +54,21 @@ const page = () => {
     reset,
   } = useForm({ resolver: yupResolver(userSchema) });
 
-  const handleUserRegistration = (data) => {
-    console.log("User registration data:", data);
+  const handleUserRegistration = async (data) => {
+    try {
+      const response = await fetch("https://dummyjson.com/users/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (result.id) {
+        router.push("/market");
+        reset();
+      }
+    } catch (error) {
+      return alert("An error occurred while signing in. Please try again.");
+    }
   };
 
   return (
@@ -132,4 +148,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
