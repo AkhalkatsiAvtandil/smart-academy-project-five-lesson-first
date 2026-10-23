@@ -63,7 +63,7 @@ const Page = () => {
       });
       const result = await response.json();
       if (result.id) {
-        router.push("/market");
+        router.push("/");
         reset();
       }
     } catch (error) {

@@ -1,11 +1,14 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useRef, useEffect } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
+  const inputRef = useRef(null);
+
   const [isVisible, setIsVisible] = useState(false);
   const [submiterror, setSubmitEror] = useState(null);
   const [usernameError, setUsernameError] = useState(null);
@@ -13,6 +16,12 @@ const Page = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("m38rmF$");
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +42,7 @@ const Page = () => {
       });
       const result = await response.json();
       if (result.token) {
-        router.push("/market");
+        router.push("/");
       } else {
         return alert("Invalid username or password. Please try again.");
       }
