@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.css";
 import { useAppSelector } from "@/lib/hooks";
 const navbarItems = [
-  { id: 1, name: "Home", url: "/" },
+  { id: 1, name: "Home", url: "/home" },
   { id: 2, name: "About", url: "/about" },
   { id: 3, name: "Contact", url: "/contact" },
   { id: 4, name: "Cart", url: "/cart" },
@@ -13,11 +14,15 @@ const navbarItems = [
 ];
 
 const Navbar = () => {
+  const pathname = usePathname();
   const cart = useAppSelector((state) => state.cart);
+
+  if (pathname === "/login" || pathname === "/register") return null;
+
   return (
     <nav className={styles.header}>
       <div className={styles.navbarContainer}>
-        <Link href="/" className={styles.navbarLogo}>
+        <Link href="/home" className={styles.navbarLogo}>
           my first website
         </Link>
 

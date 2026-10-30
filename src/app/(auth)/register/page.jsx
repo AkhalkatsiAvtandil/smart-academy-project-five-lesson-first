@@ -65,7 +65,7 @@ const Page = () => {
       });
       const result = await response.json();
       if (result.id) {
-        router.push("/");
+        router.push("/login");
         reset();
       }
     } catch (error) {

@@ -4,17 +4,15 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/lib/hooks";
 
 const Page = () => {
   const router = useRouter();
   const inputRef = useRef(null);
-  const user = useAppSelector((state) => state.user);
-
   const [isVisible, setIsVisible] = useState(false);
-  const [submiterror, setSubmitEror] = useState(null);
+  const [submitError, setSubmitError] = useState("");
   const [usernameError, setUsernameError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("m38rmF$");
@@ -27,15 +25,17 @@ const Page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError("");
     setUsernameError(null);
     setPasswordError(null);
     if (username.length === 0) {
-      return setUsernameError("username must be more than 0 characters");
+      return setUsernameError("Username is required.");
     }
     if (password.length === 0) {
-      return setPasswordError("password must be more than 0 characters");
+      return setPasswordError("Password is required.");
     }
 
+    setIsSubmitting(true);
     try {
       const response = await fetch("https://fakestoreapi.com/auth/login", {
         method: "POST",
@@ -43,17 +43,19 @@ const Page = () => {
         body: JSON.stringify({ username, password }),
       });
       const result = await response.json();
-      if (result.token) {
-        localStorage.setItem("token", result.token);
-        router.push("/");
+      if (response.ok && typeof result.token === "string") {
+        sessionStorage.setItem("token", result.token);
+        router.replace("/home");
       } else {
-        return alert("Invalid username or password. Please try again.");
+        setSubmitError("Invalid username or password. Please try again.");
       }
-      // Handle successful login (e.g., redirect to dashboard)
     } catch (error) {
-      return alert("An error occurred while signing in. Please try again.");
+      setSubmitError("Unable to sign in right now. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
   const handleSeePassword = () => {
     setIsVisible(!isVisible);
   };
@@ -62,11 +64,16 @@ const Page = () => {
     <div className={styles.page}>
       <form className={styles.form} onSubmit={handleSubmit}>
         <h3 className={styles.title}>Sign In</h3>
-        <p className={styles.description}>Sign in to access market.</p>
+        <p className={styles.description}>
+          Sign in to access the store. Demo credentials are prefilled.
+        </p>
         <input
           className={styles.input}
           type="text"
           placeholder="Username"
+          autoComplete="username"
+          value={username}
+          ref={inputRef}
           onChange={(event) => setUsername(event.target.value)}
         />
         {usernameError && <p className={styles.error}>{usernameError}</p>}
@@ -74,6 +81,8 @@ const Page = () => {
           className={styles.input}
           type={isVisible ? "text" : "password"}
           placeholder="Password"
+          autoComplete="current-password"
+          value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
         {passwordError && <p className={styles.error}>{passwordError}</p>}
@@ -84,15 +93,23 @@ const Page = () => {
         >
           {isVisible ? "hide password" : "see password"}
         </button>
-        <button className={styles.submitButton} type="submit">
-          Sign In
+        {submitError && (
+          <p className={styles.error} role="alert">
+            {submitError}
+          </p>
+        )}
+        <button
+          className={styles.submitButton}
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Signing In..." : "Sign In"}
         </button>
       </form>
       <Link href="/register" className={styles.registerLink}>
-        Don't have an account? Sign Up
+        Don&apos;t have an account? Sign Up
       </Link>
     </div>
   );
 };
-
 export default Page;

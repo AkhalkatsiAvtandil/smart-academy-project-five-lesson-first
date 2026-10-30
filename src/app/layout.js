@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import AuthGuard from "@/components/AuthGuard";
 import { DeletedItemsProvider } from "./deletedItemsContext";
 import StoreProvider from "./StoreProvider";
 
@@ -26,9 +27,11 @@ export default function RootLayout({ children }) {
       <body>
         <DeletedItemsProvider>
           <StoreProvider>
-            <Navbar />
-            {children}
-            <Footer />
+            <AuthGuard>
+              <Navbar />
+              {children}
+              <Footer />
+            </AuthGuard>
           </StoreProvider>
         </DeletedItemsProvider>
       </body>
