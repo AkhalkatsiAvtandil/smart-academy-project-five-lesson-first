@@ -69,29 +69,33 @@ export default function Productitem({
             </button>
           </div>
         )}
-        {onDelete && (
-          <button
-            className={styles.deleteButton}
-            onClick={(event) => {
-              event.stopPropagation();
-              onDelete(item.id);
-            }}
-            type="button"
-          >
-            Delete
-          </button>
-        )}
-        {onCart && (
-          <button
-            className={styles.addToCartButton}
-            onClick={(event) => {
-              event.stopPropagation();
-              onCart(item);
-            }}
-            type="button"
-          >
-            Add to Cart
-          </button>
+        {(onDelete || onCart) && (
+          <div className={styles.actions}>
+            {onDelete && (
+              <button
+                className={styles.deleteButton}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onDelete(item.id);
+                }}
+                type="button"
+              >
+                Delete
+              </button>
+            )}
+            {onCart && (
+              <button
+                className={styles.addToCartButton}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onCart(item);
+                }}
+                type="button"
+              >
+                Add to Cart
+              </button>
+            )}
+          </div>
         )}
       </div>
     </article>

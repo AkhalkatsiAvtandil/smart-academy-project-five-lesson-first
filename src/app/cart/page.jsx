@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
   changeCartQuantity,
@@ -131,11 +132,16 @@ export default function CartPage() {
             {cart.cartProducts.map((item) => (
               <article className={styles.row} key={item.id}>
                 <div className={styles.product}>
-                  <img className={styles.image} src={item.image} alt="" />
-                  <div className={styles.productInfo}>
-                    <h2>{item.title}</h2>
-                    <ProductColor image={item.image} />
-                  </div>
+                  <Link
+                    className={styles.productLink}
+                    href={`/productDdetails/${item.id}`}
+                  >
+                    <img className={styles.image} src={item.image} alt="" />
+                    <div className={styles.productInfo}>
+                      <h2>{item.title}</h2>
+                      <ProductColor image={item.image} />
+                    </div>
+                  </Link>
                 </div>
                 <div className={styles.quantity}>
                   <button

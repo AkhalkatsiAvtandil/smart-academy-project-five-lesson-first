@@ -1,0 +1,119 @@
+.page {
+  width: min(100%, 1440px);
+  min-height: 60vh;
+  margin: 0 auto;
+  padding: 28px 22px 48px;
+  background: #fff;
+}
+
+.pageTitle {
+  margin: 0 0 22px;
+  color: #202b55;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  align-items: stretch;
+  gap: 16px;
+}
+
+.grid article {
+  min-width: 0;
+  flex-direction: column;
+  gap: 0;
+  padding: 14px;
+  border: 1px solid #e4e8f5;
+  border-radius: 10px;
+  background: #f7f8fc;
+  box-shadow: none;
+}
+
+.grid article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(28, 54, 140, 0.1);
+}
+
+.grid article > img {
+  width: 100%;
+  height: 170px;
+  margin-bottom: 12px;
+  object-fit: contain;
+}
+
+.grid article > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.grid article h3 {
+  order: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 2.8em;
+  margin: 0 0 8px;
+  color: #202b55;
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.grid article p:nth-of-type(2) {
+  order: 2;
+  margin-bottom: 10px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.grid article p:first-of-type {
+  order: 3;
+  margin-bottom: 10px;
+  color: #1538a8;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.grid article p:nth-of-type(3) {
+  order: 4;
+  display: -webkit-box;
+  overflow: hidden;
+  margin-bottom: 0;
+  color: #555f75;
+  font-size: 12px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.message {
+  padding: 24px;
+  border: 1px solid #e4e8f5;
+  border-radius: 10px;
+  background: #f7f8fc;
+  color: #555f75;
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding: 22px 14px 40px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 10px;
+  }
+
+  .grid article {
+    padding: 10px;
+  }
+
+  .grid article > img {
+    height: 135px;
+  }
+}

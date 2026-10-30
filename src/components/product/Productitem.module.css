@@ -24,7 +24,9 @@
 }
 
 .content {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-width: 0;
 }
 
@@ -98,41 +100,51 @@
   opacity: 0.5;
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
 .deleteButton,
 .addToCartButton {
-  width: 112px;
-  padding: 6px 12px;
-  border: 0;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: 8px;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
 .deleteButton {
-  background: #eb2121;
+  border: 1px solid #d92d20;
+  background: #fff;
+  color: #b42318;
+}
+
+.deleteButton:hover {
+  background: #b42318;
   color: #fff;
 }
 
 .addToCartButton {
-  margin-top: 4px;
-  background: #e9f5ee;
-  color: #1d6e53;
-}
-
-.deleteButton,
-.addToCartButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 0;
+  background: #385cff;
+  color: #fff;
 }
 
 .addToCartButton:hover {
-  background: #1d6e53;
-  color: #fff;
+  background: #1538a8;
 }
 
+.deleteButton:focus-visible,
 .addToCartButton:focus-visible {
-  outline: 2px solid #1d6e53;
-  outline-offset: 2px;
+  outline: 3px solid #f5a900;
+  outline-offset: 3px;
 }
