@@ -42,6 +42,7 @@ const Page = () => {
       });
       const result = await response.json();
       if (result.token) {
+        localStorage.setItem("token", result.token);
         router.push("/");
       } else {
         return alert("Invalid username or password. Please try again.");
@@ -51,7 +52,6 @@ const Page = () => {
       return alert("An error occurred while signing in. Please try again.");
     }
   };
-
   const handleSeePassword = () => {
     setIsVisible(!isVisible);
   };

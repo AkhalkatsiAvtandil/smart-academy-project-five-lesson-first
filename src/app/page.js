@@ -13,13 +13,11 @@ export default function Product() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const isUser = false;
-
   useEffect(() => {
-    if (!isUser) {
-      router.push("/login");
+    if (!localStorage.getItem("token")) {
+      router.replace("/login");
     }
-  }, [isUser, router]);
+  }, [router]);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
