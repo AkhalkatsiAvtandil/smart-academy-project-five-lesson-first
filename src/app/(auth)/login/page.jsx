@@ -45,6 +45,7 @@ const Page = () => {
       const result = await response.json();
       if (response.ok && typeof result.token === "string") {
         sessionStorage.setItem("token", result.token);
+        window.dispatchEvent(new Event("auth-change"));
         router.replace("/home");
       } else {
         setSubmitError("Invalid username or password. Please try again.");

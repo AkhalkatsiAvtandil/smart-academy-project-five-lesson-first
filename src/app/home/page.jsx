@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Productitem from "@/components/product/Productitem";
 import { useDeletedItems } from "../deletedItemsContext";
 import { useAppDispatch } from "@/lib/hooks";
@@ -9,7 +8,6 @@ import { addToCart } from "@/lib/slices/cartSlice";
 import styles from "../page.module.css";
 
 export default function HomePage() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { addDeletedProduct } = useDeletedItems();
   const [products, setProducts] = useState([]);
@@ -17,17 +15,12 @@ export default function HomePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!sessionStorage.getItem("token")) {
-      router.replace("/login");
-      return;
-    }
-
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch(() => setError("Something went wrong while loading the items."))
       .finally(() => setLoading(false));
-  }, [router]);
+  }, []);
 
   function deleteProduct(id) {
     const deletedProduct = products.find((item) => item.id === id);

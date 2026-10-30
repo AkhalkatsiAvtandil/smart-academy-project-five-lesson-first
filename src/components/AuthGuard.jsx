@@ -5,29 +5,40 @@ import { usePathname, useRouter } from "next/navigation";
 
 const subscribeToAuth = (callback) => {
   window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  window.addEventListener("auth-change", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("auth-change", callback);
+  };
 };
 
 const getAuthSnapshot = () => Boolean(sessionStorage.getItem("token"));
-const getServerAuthSnapshot = () => false;
+const subscribeToMount = () => () => {};
+const getClientMountSnapshot = () => true;
+const getServerMountSnapshot = () => false;
 
 export default function AuthGuard({ children }) {
   const pathname = usePathname();
   const router = useRouter();
+  const isMounted = useSyncExternalStore(
+    subscribeToMount,
+    getClientMountSnapshot,
+    getServerMountSnapshot,
+  );
   const isAuthenticated = useSyncExternalStore(
     subscribeToAuth,
     getAuthSnapshot,
-    getServerAuthSnapshot,
+    getServerMountSnapshot,
   );
   const isAuthPage = pathname === "/login" || pathname === "/register";
 
   useEffect(() => {
-    if (!isAuthPage && !isAuthenticated) {
+    if (isMounted && !isAuthPage && !isAuthenticated) {
       router.replace("/login");
     }
-  }, [isAuthPage, isAuthenticated, router]);
+  }, [isAuthPage, isAuthenticated, isMounted, router]);
 
-  if (isAuthPage || isAuthenticated) {
+  if (isAuthPage || (isMounted && isAuthenticated)) {
     return children;
   }
 

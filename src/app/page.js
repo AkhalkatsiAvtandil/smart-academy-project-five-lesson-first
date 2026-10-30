@@ -1,5 +1,14 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  redirect("/login");
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace(sessionStorage.getItem("token") ? "/home" : "/login");
+  }, [router]);
+
+  return null;
 }
