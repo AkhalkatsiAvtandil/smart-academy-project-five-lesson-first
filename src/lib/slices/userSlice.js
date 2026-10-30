@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "null",
-  surename: "null",
-  age: "null",
-  subscribed: "null",
+  name: null,
+  surename: null,
+  age: 0,
+  subscribed: "FREE",
 };
 
 const userSlice = createSlice({

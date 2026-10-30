@@ -1,25 +1,31 @@
 "use client";
 
 import Productitem from "@/components/product/Productitem";
-import { useDeletedItems } from "../deletedItemsContext";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { changeCartQuantity } from "@/lib/slices/cartSlice";
 
 export default function CartPage() {
-  const { cartProducts, changeQuantity } = useDeletedItems();
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart);
 
   return (
-    <main>
+    <div>
       <h1>Cart</h1>
-      {cartProducts.length === 0 ? (
+      {cart.cartProducts.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        cartProducts.map((item) => (
+        cart.cartProducts.map((item) => (
           <Productitem
             key={item.id}
             item={item}
-            onQuantityChange={changeQuantity}
+            onQuantityChange={(id, quantity) =>
+              dispatch(changeCartQuantity({ id, quantity }))
+            }
           />
         ))
       )}
-    </main>
+      <p>Total Quantity: {cart.totalQuantity}</p>
+      <p>Total Price: ${cart.totalPrice.toFixed(2)}</p>
+    </div>
   );
 }

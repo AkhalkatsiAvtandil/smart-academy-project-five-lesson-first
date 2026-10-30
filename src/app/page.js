@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Productitem from "@/components/product/Productitem";
 import { useDeletedItems } from "./deletedItemsContext";
+import { useAppDispatch } from "@/lib/hooks";
+import { addToCart } from "@/lib/slices/cartSlice";
 import styles from "./page.module.css";
 
 export default function Product() {
   const router = useRouter();
-  const { addDeletedProduct, addToCart } = useDeletedItems();
+  const dispatch = useAppDispatch();
+  const { addDeletedProduct } = useDeletedItems();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -54,7 +57,7 @@ export default function Product() {
               key={item.id}
               item={item}
               onDelete={deleteProduct}
-              onCart={addToCart}
+              onCart={(product) => dispatch(addToCart(product))}
             />
           ))}
         </div>
