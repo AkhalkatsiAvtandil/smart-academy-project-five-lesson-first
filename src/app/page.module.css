@@ -1,21 +1,98 @@
 .page {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 24px 72px;
-  background: #f4f7f4;
+  padding: 24px 22px 48px;
+  background: #fff;
 }
 
 .pageTitle {
-  margin: 0 0 24px;
-  color: #1f3b2b;
-  font-size: clamp(2rem, 3vw, 2.7rem);
-  font-weight: 700;
+  margin: 0 0 18px;
+  color: #222;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.grid article {
+  min-width: 0;
+  flex-direction: column;
+  gap: 0;
+  padding: 14px;
+  border: 0;
+  border-radius: 0;
+  background: #f3f3f3;
+  box-shadow: none;
+}
+
+.grid article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+}
+
+.grid article img {
+  width: 100%;
+  height: 170px;
+  margin-bottom: 12px;
+  object-fit: contain;
+}
+
+.grid article > div {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.grid article h3 {
+  order: 1;
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 2.8em;
+  margin-bottom: 8px;
+  color: #171717;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.grid article p:nth-of-type(2) {
+  order: 2;
+  margin-bottom: 10px;
+  color: #eba900;
+  font-size: 13px;
+}
+
+.grid article p:first-of-type {
+  order: 3;
+  margin-bottom: 12px;
+  color: #111;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.grid article p:nth-of-type(3) {
+  order: 4;
+  display: -webkit-box;
+  overflow: hidden;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.grid article button {
+  order: 5;
 }
 
 .message {
@@ -31,7 +108,13 @@
   font-weight: 600;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -39,11 +122,18 @@
 
 @media (max-width: 560px) {
   .page {
-    padding: 28px 16px 52px;
+    padding: 20px 12px 40px;
   }
 
   .grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 10px;
+  }
+
+  .grid article {
+    padding: 10px;
+  }
+
+  .grid article img {
+    height: 130px;
   }
 }

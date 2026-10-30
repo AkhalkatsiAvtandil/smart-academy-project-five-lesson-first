@@ -11,6 +11,7 @@ export default function Productitem({
   const router = useRouter();
   const rating =
     typeof item?.rating === "object" ? item.rating.rate : item?.rating;
+  const ratingValue = Math.max(0, Math.min(5, Number(rating) || 0));
 
   return (
     <article
@@ -26,7 +27,16 @@ export default function Productitem({
       <div className={styles.content}>
         <h3 className={styles.title}>{item.title}</h3>
         <p>${item.price}</p>
-        <p>Rating: {rating ?? "No rating"} / 5</p>
+        <p className={styles.rating}>
+          <span className={styles.ratingStars} aria-label={`${ratingValue} out of 5 stars`}>
+            {Array.from({ length: 5 }, (_, index) => (
+              <span key={index}>{index < Math.round(ratingValue) ? "★" : "☆"}</span>
+            ))}
+          </span>
+          {typeof item?.rating === "object" && item.rating.count
+            ? `${item.rating.count} reviews`
+            : `${ratingValue} / 5`}
+        </p>
         <p>
           {item.description ||
             item.warrantyInformation ||

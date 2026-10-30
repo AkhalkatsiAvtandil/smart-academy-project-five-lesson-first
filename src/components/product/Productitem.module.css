@@ -60,6 +60,19 @@
   font-weight: 600;
 }
 
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ratingStars {
+  color: #f5a900;
+  font-size: 16px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
 .quantityControls {
   display: flex;
   align-items: center;

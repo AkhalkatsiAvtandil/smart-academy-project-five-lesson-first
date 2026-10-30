@@ -1,0 +1,162 @@
+.page {
+  min-height: 60vh;
+  padding: 48px 24px 72px;
+  background: #f5f7ff;
+  color: #242424;
+}
+
+.product {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  width: min(100%, 1120px);
+  margin: 0 auto;
+  padding: 36px;
+  border: 1px solid #e4e8f5;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(28, 54, 140, 0.08);
+}
+
+.imagePanel {
+  display: flex;
+  min-height: 420px;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  border-radius: 12px;
+  background: #f8f9fc;
+}
+
+.imagePanel img {
+  width: 100%;
+  max-width: 360px;
+  height: 360px;
+  object-fit: contain;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.category {
+  margin-bottom: 12px;
+  color: #385cff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.details h1 {
+  margin-bottom: 16px;
+  color: #202b55;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.2;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.rating span {
+  color: #f5a900;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.price {
+  margin-bottom: 20px;
+  color: #1538a8;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.description {
+  margin-bottom: 28px;
+  color: #555f75;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.addButton {
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 8px;
+  background: #385cff;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.deleteButton {
+  padding: 13px 24px;
+  border: 1px solid #d92d20;
+  border-radius: 8px;
+  background: #fff;
+  color: #b42318;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.deleteButton:hover {
+  background: #b42318;
+  color: #fff;
+}
+
+.addButton:hover {
+  background: #1538a8;
+}
+
+.addButton:focus-visible,
+.deleteButton:focus-visible {
+  outline: 3px solid #f5a900;
+  outline-offset: 3px;
+}
+
+.state {
+  min-height: 60vh;
+  padding: 48px 24px;
+  background: #f5f7ff;
+  color: #555f75;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 24px 14px 40px;
+  }
+
+  .product {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 20px;
+  }
+
+  .imagePanel {
+    min-height: 280px;
+  }
+
+  .imagePanel img {
+    height: 240px;
+  }
+}

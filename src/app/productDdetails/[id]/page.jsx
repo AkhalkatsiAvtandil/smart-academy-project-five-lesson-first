@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/hooks";
 import { addToCart } from "@/lib/slices/cartSlice";
+import { useDeletedItems } from "../../deletedItemsContext";
+import styles from "./page.module.css";
 
 export default function ProductDetailsPage() {
   const params = useParams();
+  const router = useRouter();
+  const { addDeletedProduct } = useDeletedItems();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -27,41 +31,65 @@ export default function ProductDetailsPage() {
   }, [params.id]);
 
   if (loading) {
-    return <div>Loading product...</div>;
+    return <main className={styles.state}>Loading product...</main>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <main className={styles.state}>{error}</main>;
   }
 
   if (!product) {
-    return <div>No product found.</div>;
+    return <main className={styles.state}>No product found.</main>;
   }
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
+  const handleDelete = () => {
+    addDeletedProduct(product);
+    router.push("/deletedItems");
+  };
+  const rating = Math.max(
+    0,
+    Math.min(5, Math.round(Number(product.rating?.rate) || 0)),
+  );
 
   return (
-    <main style={{ maxWidth: 900, margin: "40px auto", padding: "0 24px" }}>
-      <h1>{product.title}</h1>
-      <img
-        src={product.image}
-        alt={product.title}
-        style={{
-          maxWidth: 300,
-          width: "100%",
-          display: "block",
-          margin: "24px 0",
-        }}
-      />
-      <p>Category: {product.category}</p>
-      <p>Price: ${product.price}</p>
-      <p>Rating: {product.rating?.rate ?? "No rating"} / 5</p>
-      <p>{product.description}</p>
-      <button type="button" onClick={() => dispatch(addToCart(product))}>
-        Add to Cart
-      </button>
+    <main className={styles.page}>
+      <section className={styles.product}>
+        <div className={styles.imagePanel}>
+          <img src={product.image} alt={product.title} />
+        </div>
+        <div className={styles.details}>
+          <p className={styles.category}>{product.category}</p>
+          <h1>{product.title}</h1>
+          <p className={styles.rating}>
+            <span aria-label={`${rating} out of 5 stars`}>
+              {"★".repeat(rating)}
+              {"☆".repeat(5 - rating)}
+            </span>
+            {product.rating?.rate ?? "No rating"} / 5
+          </p>
+          <p className={styles.price}>${product.price.toFixed(2)}</p>
+          <p className={styles.description}>{product.description}</p>
+          <div className={styles.actions}>
+            <button
+              className={styles.addButton}
+              type="button"
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </button>
+            <button
+              className={styles.deleteButton}
+              type="button"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
