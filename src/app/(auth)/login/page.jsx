@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/lib/hooks";
 
 const Page = () => {
   const router = useRouter();
   const inputRef = useRef(null);
+  const user = useAppSelector((state) => state.user);
 
   const [isVisible, setIsVisible] = useState(false);
   const [submiterror, setSubmitEror] = useState(null);

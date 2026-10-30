@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/lib/hooks";
 
 const userSchema = yup.object().shape({
   firstName: yup
@@ -42,6 +43,7 @@ const userSchema = yup.object().shape({
 
 const Page = () => {
   const router = useRouter();
+  const user = (state) => state.user;
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
