@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/hooks";
 import { addToCart } from "@/lib/slices/cartSlice";
 import { useDeletedItems } from "../../deletedItemsContext";
+
 import styles from "./page.module.css";
 
 export default function ProductDetailsPage() {

@@ -43,7 +43,9 @@ const Page = () => {
         body: JSON.stringify({ username, password }),
       });
       const result = await response.json();
+
       if (response.ok && typeof result.token === "string") {
+        localStorage.setItem("user", JSON.stringify(result.token));
         sessionStorage.setItem("token", result.token);
         window.dispatchEvent(new Event("auth-change"));
         router.replace("/home");
